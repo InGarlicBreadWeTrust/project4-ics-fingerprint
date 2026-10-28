@@ -1,0 +1,69 @@
+{
+  "out_dir": "output",
+  "events": {
+    "modbus": 0,
+    "dnp3": 1,
+    "s7comm": 0,
+    "unknown": 1,
+    "total": 4
+  },
+  "ndjson_sha256": "e0ade6dace950f9ae6dd3e6b06311084cb28134dc2f46b994c7b63b25825eff1",
+  "report_sha256": "43d39cd0947f5625bff10d50ef8a4746643750fcf2d1060cc7a74bb36980d5b0",
+  "attestation_runtime": {
+    "verdict": "PASS",
+    "sockets_before": 16,
+    "sockets_after": 16,
+    "egress_established_total": 7,
+    "egress_inscope_baseline": [
+      [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        0,
+        "0A"
+      ],
+      [
+        [
+          10,
+          12,
+          168,
+          192
+        ],
+        22,
+        "01"
+      ],
+      [
+        [
+          10,
+          12,
+          168,
+          192
+        ],
+        11434,
+        "01"
+      ],
+      [
+        [
+          10,
+          12,
+          168,
+          192
+        ],
+        11434,
+        "06"
+      ]
+    ],
+    "egress_inscope_baseline_count": 4,
+    "newly_opened": 0,
+    "newly_inscope_count": 0,
+    "clean": true
+  },
+  "attestation_static": {
+    "violations": 0,
+    "clean": true,
+    "whitelisted_emitter": "output/egress_outband.py"
+  }
+}

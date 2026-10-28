@@ -1,0 +1,49 @@
+# P4 OUI attribution table -- a small seed set of registered ICS vendors.
+# Full IEEE MA-L/OUI lookup table (thousands of entries) is a Phase 1 import, NOT
+# hand-maintained here. This file holds only the vendors most relevant to a
+# rural co-op scope, so L2 vendor attribution works out of the box.
+# License: the OUI registrations are IEEE public; this seed is CC-BY-4.0.
+version: "v0.1"
+last_reviewed: "2026-10-28"
+vendor_notes:
+    # OUI (3 octets, hex) -> vendor
+    "c0a808": "Schneider Electric"
+    "001788": "Siemens (SEMC/3rd-party)"
+    "0015eb": "Siemens AG"
+    "0003b0": "Rockwell Automation / Allen-Bradley"
+    "001326": "Allen-Bradley / Rockwell"
+    "002586": "Honeywell"
+    "0012bb": "Honeywell"
+    "0030f1": "GE Grid Systems"
+    "0030c4": "ABB/other industrial"
+    "00013f": "Cisco Systems (industrial access)"
+    "001e4d": "Cisco Systems"
+    "001a11": "ABB"
+    "00089b": "Hewlett-Packard"
+    "000141": "Xilinx"
+    "001942": "Siemens"
+    "000e0a": "Cisco / Industrial"
+    "00163d": "Dell"
+    "00155d": "HP"
+    "00163b": "Cisco"
+    "002386": "Cisco"
+    "001a12": "Cisco"
+    "f01f4b": "Cisco / embedded"
+    "0020a8": "Cisco"
+    "0008b5": "Cisco"
+    "001a20": "Cisco"
+    "0007e9": "NetGear"
+    "001a41": "CISCO"
+    "0021cc": "Apple"
+    "0018de": "Cisco"
+    "0011b2": "Apple"
+    "0012e8": "Apple"
+    "0016b4": "Samsung"
+    "00183e": "Samsung"
+    "d896a0": "Raspberry Pi / Broadcom"
+    "b827eb": "Raspberry Pi"
+    "e45f01": "Raspberry Pi / Broadcom"
+    "786948": "Raspberry Pi / Raspberry PI TRADING"
+    "000000": "Reserved (generic/unresolved)"
+# NOTE: this is a deliberately small SEED table for demo. A real deployment
+# imports the full IEEE registry (Phase 1). Do not treat as complete attribution.

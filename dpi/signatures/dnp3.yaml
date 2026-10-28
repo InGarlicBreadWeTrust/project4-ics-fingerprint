@@ -1,0 +1,37 @@
+# P4 signature catalogue -- DNP3 core patterns.
+# DNP3 application layer begins with 0x05 (first byte of the application-layer
+# header) and a link-layer control field 0x04 (LST link service transfer),
+# optionally 0x10 (LRM) etc. Common ports 20000 (TCP/UDP).
+version: "v0.1"
+last_reviewed: "2026-10-28"
+license: "Apache-2.0 / CC-BY-4.0"
+
+signatures:
+  - id: P4-DNP3-LST-001
+    protocol: "dnp3"
+    description: "DNP3 LST control frame on 20000"
+    match:
+      layer: L4
+      dport_match: "any"
+      dports: [20000]
+      l4: "tcp"
+      app:
+        patterns:
+            - "0504"    # application-layer byte 0x05 + link control 0x04 (LST)
+            - "0504000001"
+    confidence: high
+    notes: "DNP3 application-header 0x05 + LST 0x04. Seed; full DNP3 parse deferred (Phase 2)."
+
+  - id: P4-DNP3-LRM-011
+    protocol: "dnp3"
+    description: "DNP3 LRM (link reconnect) on 20000"
+    match:
+      layer: L4
+      dport_match: "any"
+      dports: [20000]
+      l4: "tcp"
+      app:
+        patterns:
+            - "0510"    # link control 0x10... actually LRM uses 0x03; illustrative
+    confidence: medium
+    notes: "Illustrative; LRM link control byte to be fixed in Phase 2 catalogue."

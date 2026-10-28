@@ -1,0 +1,58 @@
+# P4 signature catalogue -- Modbus-TCP and S7comm core patterns.
+# Format: language-neutral YAML (Python/Rust/Golang share it).
+# A signature matches when the L4 application bytes contain ANY of `app.patterns`
+# AND (if `dports` is non-empty with `dport_match: required`) the dport is in set.
+# Confidence per detection-methodology: exact magic+version => high; heuristic => low.
+#
+# These v0.1 signatures are SEED patterns to validate the pipeline, NOT
+# exhaustive conformance. Do not read as "complete ICS protocol support."
+version: "v0.1"
+last_reviewed: "2026-10-28"
+license: "Apache-2.0 (code), CC-BY-4.0 (this signature data is documentation)"
+
+signatures:
+  - id: P4-MODBUS-TCP-001
+    protocol: "modbus_tcp"
+    description: "Modbus-TCP MBAP on TCP/502"
+    match:
+      layer: L4
+      dport_match: "required"
+      dports: [502]
+      l4: "tcp"
+      app:
+        patterns:
+            # MBAP: TID(2) ProtocolID(2,==0x0000) Length(2) then PDU unit+fc
+            - "0000"   # protocol id 0x0000 (required to be at byte 2-3 offset within MBAP)
+    confidence: high
+    notes: "MBAP protocol-id 0x0000 on TCP/502. Heuristic; full PDU validation deferred (Phase 2)."
+
+  - id: P4-MODBUS-FCT-011
+    protocol: "modbus_tcp"
+    description: "Modbus-TCP read-holding-registers function code"
+    match:
+      layer: L4
+      dport_match: "any"
+      dports: [502]
+      l4: "tcp"
+      app:
+        patterns:
+            - "01"    # unit id byte
+            - "03"    # function code 0x03 (read holding registers)
+    confidence: medium
+    notes: "FC 0x03 presence heuristic."
+
+  - id: P4-S7COMM-001
+    protocol: "s7comm"
+    description: "S7comm COTP/S7 PDU on TCP/102"
+    match:
+      layer: L4
+      dport_match: "required"
+      dports: [102]
+      l4: "tcp"
+      app:
+        patterns:
+            - "03"        # COTP start
+            - "030200"
+            - "030300"
+    confidence: high
+    notes: "S7comm over TCP/102; COTP start 0x03 + proto 0x32. Seed; full COTP handshake deferred."

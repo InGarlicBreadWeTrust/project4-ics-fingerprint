@@ -1,0 +1,9 @@
+{
+  "counts": {
+    "modbus": 0,
+    "dnp3": 1,
+    "s7comm": 0,
+    "unknown": 1,
+    "total": 4
+  }
+}
