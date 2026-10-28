@@ -1,0 +1,13 @@
+# OS / editor
+.DS_Store
+*~
+*.swp
+.idea/
+.vscode/
+# build artifacts
+/target/
+build/
+*.o
+*.a
+*.so
+node_modules/

@@ -1,0 +1,15 @@
+Passive ICS Device Fingerprinting & Asset Discovery (Project #4)
+Copyright 2026 InGarlicBreadWeTrust
+
+License of our own code, signature catalogue, safety policy, and OCSF output
+schema in this repository:
+  Apache License 2.0 (permissive, WITH a patent grant) — see LICENSE.
+  See legal-notes / license-assessment.md for the full rationale.
+
+Passive-only safety guarantee (see SAFETY-POLICY.md):
+  This tool transmits ZERO packets onto an in-scope OT network. It performs no
+  active probing (no SYN/ICMP/UDP/ARP/LLC), injects no synthetic/malformed/
+  replayed packets, and emits no telemetry, secrets, or call-home. Identity
+  fields are read only from packets the in-network devices already emitted.
+
+No secrets, credentials, or call-home exist anywhere in this tree.
