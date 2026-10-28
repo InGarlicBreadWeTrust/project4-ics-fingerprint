@@ -11,3 +11,8 @@ build/
 *.a
 *.so
 node_modules/
+# generated pipeline output (regenerate via output/report.py -- do not track)
+/reports/
+# python bytecode
+__pycache__/
+*.pyc
