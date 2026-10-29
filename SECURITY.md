@@ -39,6 +39,9 @@ telemetry, no call-home. See `README.md` "Design principles".
   notifies the owner (`@InGarlicBreadWeTrust`) immediately.
 - Or contact the owner directly via the GitHub Contact-owner interface at
   `https://github.com/InGarlicBreadWeTrust` (also in the "About" sidebar).
-- PGP key: not published yet. Send reports in clear text via a draft issue;
-  for encrypted contact, request the key in your first message and we will
-  respond out-of-band.
+- **PGP public key**: `PGP-KEY.asc` in this repo (RSA 4096, expires 2029-10-28).
+  - Identity: `InGarlicBreadWeTrust <80548374+InGarlicBreadWeTrust@users.noreply.github.com>`
+  - Fingerprint: `BC48:60A3:23AC:CA43:FE78:72FE:A0FD:52A2:0971`
+  - Key ID (short): `0x52A20971`
+  - For encrypted contact: import the public key with
+    `gpg --import PGP-KEY.asc`, then encrypt your report with it.
