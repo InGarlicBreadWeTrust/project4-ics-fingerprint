@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+env:
+  # Pin so `python -m unittest discover` never has to shell out to network libs.
+  PYTHONUNBUFFERED: "1"
+
+jobs:
+  # 1) The 23-check regression suite. Pure stdlib + PyYAML; network-free.
+  unit:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.9", "3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install declared deps
+        run: pip install -r requirements.txt
+      - name: Show Python (for trace)
+        run: python --version && python -c "import yaml; print('yaml', yaml.__version__)"
+      - name: Run test suites
+        run: python3 -m unittest discover -s testvectors -p 'test_*.py' -v
+
+  # 2) Static zero-egress lint: the core must import NO off-box network primitive.
+  static-egress:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install declared deps
+        run: pip install -r requirements.txt
+      - name: Static zero-egress audit (must report 0 leaks)
+        run: |
+          python3 -c "from safety.egress_guard import scan_core, ROOTS; \
+            r = scan_core(); \
+            print('root roots:', ROOTS); \
+            print('leaks:', repr(r)); \
+            assert r == [], 'UNEXPECTED EGRESS PRIMITIVES IN CORE'; \
+            print('STATIC ZERO-EGRESS: OK')"
+
+  # 3) Runtime attestation: the pipeline opens no NEW off-box socket during a run.
+  runtime-attest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install declared deps
+        run: pip install -r requirements.txt
+      - name: Build a synthetic fixture (zero-egress, pure bytes, deterministic)
+        run: python3 testvectors/build_fixture.py testvectors/four_frames.pcap
+      - name: End-to-end passivity run (ingest -> dpi -> fingerprint -> OCSF)
+        run: python3 testvectors/run_e2e.py
+      - name: Runtime zero-egress attestation (PASS required)
+        run: python3 -m safety.attestation

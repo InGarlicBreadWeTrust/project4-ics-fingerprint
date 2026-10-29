@@ -1,0 +1,14 @@
+# project4-ics-fingerprint — runtime dependencies
+#
+# Design invariant: the analysis core (ingest, dpi, fingerprint, safety, output)
+# is Python 3.9+ STANDARD-LIBRARY ONLY. The zero-egress guarantee is enforced by
+# safety/egress_guard.py (static) and safety/attestation.py (runtime /proc probe)
+# precisely because no core module may open a socket or spawn a network process.
+#
+# The ONE declared third-party dependency below is used ONLY to parse the
+# language-neutral .yaml signature files in dpi/signatures.py. It is not part of
+# the analysis core and is never imported on the hot path outside signature load.
+#
+# Pin to a widely-available, stable release (has wheels for CPython 3.9–3.12).
+# If you build fully offline, vendor PyYAML or switch your signatures to JSON.
+PyYAML==6.0.2

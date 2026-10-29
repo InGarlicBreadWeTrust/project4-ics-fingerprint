@@ -110,7 +110,8 @@ def _lint_python(path):
     """Parse a module and return egress violations in its executable code."""
     violations = []
     try:
-        text = open(path, "r", encoding="utf-8", errors="replace").read()
+        with open(path, "r", encoding="utf-8", errors="replace") as fh:
+            text = fh.read()
     except OSError:
         return violations
 
@@ -234,9 +235,11 @@ def negative_tests():
     results = []
     with tempfile.TemporaryDirectory() as td:
         bad = os.path.join(td, "bad.py")
-        open(bad, "w").write(_BAD)
+        with open(bad, "w", encoding="utf-8") as fh:
+            fh.write(_BAD)
         clean = os.path.join(td, "clean.py")
-        open(clean, "w").write(_CLEAN)
+        with open(clean, "w", encoding="utf-8") as fh:
+            fh.write(_CLEAN)
         bad_v = _lint_python(bad)
         clean_v = _lint_python(clean)
         kinds = {v.kind for v in bad_v}

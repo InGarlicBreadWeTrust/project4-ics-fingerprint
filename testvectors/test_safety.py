@@ -27,9 +27,11 @@ class TestNonVacuity(unittest.TestCase):
         import tempfile
         with tempfile.TemporaryDirectory() as td:
             bad = os.path.join(td, "bad.py")
-            open(bad, "w").write(eg._BAD)
+            with open(bad, "w", encoding="utf-8") as fh:
+                fh.write(eg._BAD)
             clean = os.path.join(td, "clean.py")
-            open(clean, "w").write(eg._CLEAN)
+            with open(clean, "w", encoding="utf-8") as fh:
+                fh.write(eg._CLEAN)
             self.assertGreaterEqual(len(eg._lint_python(bad)), 3)
             self.assertEqual(eg._lint_python(clean), [])
 
