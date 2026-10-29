@@ -33,4 +33,12 @@ The pipeline is passive: it reads a mirror/tap and writes OCSF output. No
 telemetry, no call-home. See `README.md` "Design principles".
 `requirements.txt` declares the sole third-party dependency (PyYAML).
 
-<!-- TODO(maintainer): fill in a real disclosure channel here. -->
+## Contact
+
+- Open a new **draft issue** in this repo and label it `security` — GitHub
+  notifies the owner (`@InGarlicBreadWeTrust`) immediately.
+- Or contact the owner directly via the GitHub Contact-owner interface at
+  `https://github.com/InGarlicBreadWeTrust` (also in the "About" sidebar).
+- PGP key: not published yet. Send reports in clear text via a draft issue;
+  for encrypted contact, request the key in your first message and we will
+  respond out-of-band.
